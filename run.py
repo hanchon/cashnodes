@@ -61,7 +61,7 @@ def call_crawler (addr, port, magic, timeout, database):
                       height=height,
                       relay=0)
     try:
-        print("Connecting to %s", conn.to_addr)
+        print "Connecting to %s" % (str(conn.to_addr))
         conn.open()
         handshake_msgs = conn.handshake()
     except (ProtocolError, ConnectionError, socket.error) as err:
@@ -71,7 +71,7 @@ def call_crawler (addr, port, magic, timeout, database):
         try:
             conn.getaddr(block=False)
         except (ProtocolError, ConnectionError, socket.error) as err:
-            print("%s: %s", conn.to_addr, err)
+            print "%s: %s" % (str(conn.to_addr), str(err))
         else:
             addr_wait = 0
             while addr_wait < 30:
@@ -80,7 +80,7 @@ def call_crawler (addr, port, magic, timeout, database):
                 try:
                     msgs = conn.get_messages(commands=['addr'])
                 except (ProtocolError, ConnectionError, socket.error) as err:
-                    print("%s: %s", conn.to_addr, err)
+                    print "%s: %s" % (str(conn.to_addr), str(err))
                     break
                 if msgs and any([msg['count'] > 1 for msg in msgs]):
                     addr_msgs = msgs
@@ -89,7 +89,7 @@ def call_crawler (addr, port, magic, timeout, database):
         version_msg = handshake_msgs[0]
         from_services = version_msg.get('services', 0)
         if from_services != services:
-            print("%s Expected %d, got %d for services", conn.to_addr, services, from_services)
+            print "%s Expected %d, got %d for services" % (str(conn.to_addr), services, from_services)
         print "Start insertion addrs from:", str(addr)
         try:
             for one_addr in addr_msgs[0]['addr_list']:
