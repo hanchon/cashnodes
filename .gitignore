@@ -9,3 +9,4 @@
 clean.sh
 geoip/*.dat
 rsync.sh
+nodes.db
