@@ -19,5 +19,5 @@ starting_port = "8333"
 
 Run the script
 ```
-python3 run.py
+python run.py
 ```
